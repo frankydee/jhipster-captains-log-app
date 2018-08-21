@@ -38,6 +38,11 @@ public class CacheConfiguration {
             cm.createCache(uk.co.networkrail.trackgeometry.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(uk.co.networkrail.trackgeometry.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(uk.co.networkrail.trackgeometry.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(uk.co.networkrail.trackgeometry.domain.CaptainsLog.class.getName(), jcacheConfiguration);
+            cm.createCache(uk.co.networkrail.trackgeometry.domain.CaptainsLog.class.getName() + ".logEntries", jcacheConfiguration);
+            cm.createCache(uk.co.networkrail.trackgeometry.domain.LogEntry.class.getName(), jcacheConfiguration);
+            cm.createCache(uk.co.networkrail.trackgeometry.domain.ELR.class.getName(), jcacheConfiguration);
+            cm.createCache(uk.co.networkrail.trackgeometry.domain.Track.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

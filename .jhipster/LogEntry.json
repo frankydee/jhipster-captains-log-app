@@ -1,0 +1,51 @@
+{
+    "name": "LogEntry",
+    "fields": [
+        {
+            "fieldName": "startMileage",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "endMileage",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "invalidationCode",
+            "fieldType": "InvalidationCode",
+            "fieldValues": "OFF_ROUTE,INSTRUMENT_FAILURE"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "elr",
+            "otherEntityName": "eLR",
+            "otherEntityField": "elrCode",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "logEntry"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "trackId",
+            "otherEntityName": "track",
+            "otherEntityField": "trackId",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "logEntry"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "captainsLog",
+            "otherEntityName": "captainsLog",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180821223850",
+    "entityTableName": "log_entry",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
