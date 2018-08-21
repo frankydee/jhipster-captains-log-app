@@ -1,0 +1,37 @@
+{
+    "name": "CaptainsLog",
+    "fields": [
+        {
+            "fieldName": "runDate",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "rst",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "loadDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "logEntry",
+            "otherEntityName": "logEntry",
+            "otherEntityRelationshipName": "captainsLog"
+        }
+    ],
+    "changelogDate": "20180821223849",
+    "entityTableName": "captains_log",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

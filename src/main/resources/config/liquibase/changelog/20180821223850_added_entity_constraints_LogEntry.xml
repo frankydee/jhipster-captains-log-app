@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity LogEntry.
+    -->
+    <changeSet id="20180821223850-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="elr_id"
+                                 baseTableName="log_entry"
+                                 constraintName="fk_log_entry_elr_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="elr"/>
+
+        <addForeignKeyConstraint baseColumnNames="track_id_id"
+                                 baseTableName="log_entry"
+                                 constraintName="fk_log_entry_track_id_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="track"/>
+
+        <addForeignKeyConstraint baseColumnNames="captains_log_id"
+                                 baseTableName="log_entry"
+                                 constraintName="fk_log_entry_captains_log_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="captains_log"/>
+
+    </changeSet>
+</databaseChangeLog>

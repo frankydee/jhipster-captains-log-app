@@ -1,0 +1,53 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-captains-log-heading">Create or edit a Captains Log</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!captainsLog.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="captainsLog.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_runDate">Run Date</label>
+                    <div class="d-flex">
+                        <input id="field_runDate" type="datetime-local" class="form-control" name="runDate" [(ngModel)]="runDate"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.runDate?.dirty && editForm.controls.runDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.runDate?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.runDate?.errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_rst">Rst</label>
+                    <input type="text" class="form-control" name="rst" id="field_rst"
+                        [(ngModel)]="captainsLog.rst" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_loadDate">Load Date</label>
+                    <div class="d-flex">
+                        <input id="field_loadDate" type="datetime-local" class="form-control" name="loadDate" [(ngModel)]="loadDate"
+                        />
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-log-entry-heading">Create or edit a Log Entry</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!logEntry.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="logEntry.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_startMileage">Start Mileage</label>
+                    <input type="number" class="form-control" name="startMileage" id="field_startMileage"
+                        [(ngModel)]="logEntry.startMileage" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_endMileage">End Mileage</label>
+                    <input type="number" class="form-control" name="endMileage" id="field_endMileage"
+                        [(ngModel)]="logEntry.endMileage" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_invalidationCode">Invalidation Code</label>
+                    <select class="form-control" name="invalidationCode" [(ngModel)]="logEntry.invalidationCode" id="field_invalidationCode" >
+                        <option value="OFF_ROUTE">OFF_ROUTE</option>
+                        <option value="INSTRUMENT_FAILURE">INSTRUMENT_FAILURE</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_elr">Elr</label>
+                    <select class="form-control" id="field_elr" name="elr" [(ngModel)]="logEntry.elr">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="eLROption.id === logEntry.elr?.id ? logEntry.elr : eLROption" *ngFor="let eLROption of elrs; trackBy: trackELRById">{{eLROption.elrCode}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_trackId">Track Id</label>
+                    <select class="form-control" id="field_trackId" name="trackId" [(ngModel)]="logEntry.trackId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="trackOption.id === logEntry.trackId?.id ? logEntry.trackId : trackOption" *ngFor="let trackOption of trackids; trackBy: trackTrackById">{{trackOption.trackId}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_captainsLog">Captains Log</label>
+                    <select class="form-control" id="field_captainsLog" name="captainsLog" [(ngModel)]="logEntry.captainsLog" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="captainsLogOption.id === logEntry.captainsLog?.id ? logEntry.captainsLog : captainsLogOption" *ngFor="let captainsLogOption of captainslogs; trackBy: trackCaptainsLogById">{{captainsLogOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

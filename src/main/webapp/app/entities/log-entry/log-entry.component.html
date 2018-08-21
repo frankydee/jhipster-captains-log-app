@@ -1,0 +1,76 @@
+<div>
+    <h2 id="page-heading">
+        <span>Log Entries</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-log-entry" [routerLink]="['/log-entry/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Log Entry
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="logEntries">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="startMileage"><span>Start Mileage</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="endMileage"><span>End Mileage</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="invalidationCode"><span>Invalidation Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="elr.elrCode"><span>Elr</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="trackId.trackId"><span>Track Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="captainsLog.id"><span>Captains Log</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let logEntry of logEntries ;trackBy: trackId">
+                <td><a [routerLink]="['/log-entry', logEntry.id, 'view' ]">{{logEntry.id}}</a></td>
+                <td>{{logEntry.startMileage}}</td>
+                <td>{{logEntry.endMileage}}</td>
+                <td>{{logEntry.invalidationCode}}</td>
+                <td>
+                    <div *ngIf="logEntry.elr">
+                        <a [routerLink]="['../elr', logEntry.elr?.id, 'view' ]" >{{logEntry.elr?.elrCode}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="logEntry.trackId">
+                        <a [routerLink]="['../track', logEntry.trackId?.id, 'view' ]" >{{logEntry.trackId?.trackId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="logEntry.captainsLog">
+                        <a [routerLink]="['../captains-log', logEntry.captainsLog?.id, 'view' ]" >{{logEntry.captainsLog?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/log-entry', logEntry.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/log-entry', logEntry.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'log-entry/'+ logEntry.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

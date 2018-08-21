@@ -1,0 +1,57 @@
+entity CaptainsLog {
+	runDate Instant required
+    rst String
+    loadDate Instant 
+}
+
+entity LogEntry {
+	startMileage Integer
+    endMileage Integer
+    invalidationCode InvalidationCode
+}
+
+entity ELR {
+	elrCode String required
+}
+
+entity Track {
+	trackId String required
+}
+
+/**
+ * The User entity.
+ */
+entity User {
+	/**
+	* The firstname attribute.
+	*/
+	firstName String,
+	lastName String,
+	email String
+}
+
+
+enum InvalidationCode {
+    OFF_ROUTE, INSTRUMENT_FAILURE
+}
+
+
+relationship OneToMany {
+	CaptainsLog to LogEntry 
+}
+
+relationship OneToOne {
+	LogEntry{elr(elrCode)} to ELR 
+    LogEntry{trackId(trackId)} to Track
+}
+
+
+
+
+// Set pagination options
+paginate CaptainsLog with pagination
+paginate LogEntry with infinite-scroll
+
+// Set service options to all except few
+service all with serviceImpl except Employee, Job
+
